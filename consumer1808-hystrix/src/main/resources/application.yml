@@ -1,0 +1,42 @@
+spring:
+  application:
+    name: consumer-hystrix
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://user:password123@localhost:8761/eureka
+    register-with-eureka: true
+    fetch-registry: true
+  instance:
+    prefer-ip-address: true  # 使用IP地址注册（可选）
+
+server:
+  port: 9006
+
+# Resilience4j熔断器配置
+resilience4j:
+  circuitbreaker:
+    instances:
+      helloService:
+        failure-rate-threshold: 50
+        sliding-window-size: 10
+        minimum-number-of-calls: 5
+        wait-duration-in-open-state: 10s
+        permitted-number-of-calls-in-half-open-state: 3
+
+# Feign客户端配置
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 5000
+        readTimeout: 10000
+  circuitbreaker:
+    enabled: true
+
+logging:
+  level:
+    root: INFO
+    cn.tedu: DEBUG  # 添加项目包日志级别便于调试
+    org.springframework.cloud.openfeign: DEBUG
