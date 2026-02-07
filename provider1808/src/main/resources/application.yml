@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: provider-user  # ✅ 应用名称设置正确
+  
+eureka:
+  client:
+    service-url:
+      defaultZone: http://user:password123@localhost:8761/eureka  # ✅ Eureka地址正确
+    register-with-eureka: true    # ⚠️ 建议显式添加
+    fetch-registry: true          # ⚠️ 建议显式添加
+
+server:
+  port: 7900  # ✅ 端口设置正确
+
+logging:
+  level:
+    root: INFO  # ✅ 日志级别正确
